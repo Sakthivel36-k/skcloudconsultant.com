@@ -71,9 +71,10 @@
     });
   }
 
-  // 3D tilt interaction
+  // 3D tilt interaction — desktop mouse only, skip on touch devices to avoid a stuck transform after tapping
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduceMotion) {
+  var supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!reduceMotion && supportsHover) {
     document.querySelectorAll('[data-tilt]').forEach(function(el){
       el.addEventListener('mousemove', function(e){
         var r = el.getBoundingClientRect();
